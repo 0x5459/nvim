@@ -28,3 +28,4 @@ require('toggleterm').setup {
     { 'lazygit', '<leader>gg', 'LazyGit', 'float' },
   },
 }
+

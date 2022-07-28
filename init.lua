@@ -5,3 +5,4 @@ features.enable(icons, terminal, lsp { 'lua' })
 
 require 'core'
 require('keymaps').general()
+

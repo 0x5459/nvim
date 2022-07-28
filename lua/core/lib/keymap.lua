@@ -2,12 +2,20 @@ local M = {}
 
 M.set_keymap = function(mode, k, target, opts)
   local wk_present, wk = pcall(require, 'which-key')
+
   vim.keymap.set(mode, k, target, opts)
 
   if wk_present and opts.desc ~= nil and opts.desc ~= '' then
     wk.register({ [k] = { opts.desc } })
-  else
   end
+end
+
+function M.group(k, desc)
+  local wk_present, wk = pcall(require, 'which-key')
+  if wk_present and desc ~= nil and desc ~= '' then
+    wk.register({ [k] = { desc } })
+  end
+
 end
 
 function M.cmd(cmd)

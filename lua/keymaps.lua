@@ -1,5 +1,5 @@
 local keymap = require 'core.lib.keymap'
-local cmd, opts = keymap.cmd, keymap.opts
+local cmd, opts, group = keymap.cmd, keymap.opts, keymap.group
 local map, nmap, imap, vmap, xmap, tmap = keymap.map, keymap.nmap, keymap.imap, keymap.vmap, keymap.xmap, keymap.tmap
 local remap, noremap, desc, silent, buffer = keymap.remap, keymap.noremap, keymap.desc, keymap.silent, keymap.buffer
 
@@ -62,6 +62,7 @@ M.general = function()
 
   -- save
   map { 'i', 'n' }('<C-s>', '<cmd> w <CR>', opts(noremap, desc '﬚  save file'))
+  nmap({ '<C-q>', '<leader>q' }, cmd 'q', opts(noremap, desc 'Quit vim'))
 
   -- Packer keymaps
   nmap('<leader>pu', cmd 'PackerUpdate', opts(noremap, silent, desc '  Run PackerUpdate'))
@@ -69,60 +70,75 @@ M.general = function()
   nmap('<leader>pc', cmd 'PackerCompile', opts(noremap, desc '  Run PackerCompile'))
   nmap('<leader>ps', cmd 'PackerSync', opts(noremap, silent, desc 'מּ  Run PackerSync'))
 
+  -- buf stuff
+  group('<leader>b', '+Buffer')
   nmap('<TAB>', cmd 'BufferLineCycleNext', opts(noremap, silent, desc '  goto prev tab'))
   nmap('<S-Tab>', cmd 'BufferLineCyclePrev', opts(noremap, silent, desc '  goto next tab'))
-
-  nmap('[b', cmd 'BufferLineMoveNext', opts(noremap, silent, desc ''))
-  nmap(']b', cmd 'BufferLineMovePrev', opts(noremap, silent, desc ''))
-
-  -- -- Tab switch buffer
-  nmap('<S-l>', cmd 'BufferLineCycleNext', opts(noremap, desc '  Goto next buffer'))
-  nmap('<S-h>', cmd 'BufferLineCyclePrev', opts(noremap, desc '  Goto prev buffer'))
-
-  nmap('<C-w>', cmd 'bdelete', opts(noremap, silent, desc 'Close buffer'))
-  nmap('<C-S-w>', cmd 'bdelete!', opts(noremap, silent, desc 'Force close buffer'))
-  nmap({ '<C-q>' }, cmd 'q', opts(noremap, desc 'Quit vim'))
-  nmap({ '<C-S-q>' }, cmd 'q!', opts(noremap, desc 'Force quit vim'))
+  nmap('<leader>bl', cmd 'BufferLineMoveNext', opts(noremap, silent, desc 'move tab to next'))
+  nmap('<leader>bh', cmd 'BufferLineMovePrev', opts(noremap, silent, desc 'move tab to prev'))
+  nmap('<leader>bL', cmd 'BufferLineCloseRight', opts(noremap, silent, desc 'Close all to the Right'))
+  nmap('<leader>bH', cmd 'BufferLineCloseLeft', opts(noremap, silent, desc 'Close all to the left'))
+  nmap('<leader>bj', cmd 'BufferLinePick', opts(noremap, silent, desc 'Jump'))
+  nmap('<leader>bx', cmd 'BufferLinePickClose', opts(noremap, silent, desc 'Pick which buffer to close'))
+  nmap('<leader>bD', cmd 'BufferLineSortByDirectory', opts(noremap, silent, desc 'Sort by directory'))
+  nmap('<leader>bL', cmd 'BufferLineSortByExtension', opts(noremap, silent, desc 'Sort by language'))
+  nmap('<leader>bE', cmd 'BufferLineSortByExtension', opts(noremap, silent, desc 'Sort by language'))
+  -- Tab switch buffer
+  nmap('L', cmd 'BufferLineCycleNext', opts(noremap, desc '  Goto next buffer'))
+  nmap('H', cmd 'BufferLineCyclePrev', opts(noremap, desc '  Goto prev buffer'))
+  nmap({ '<C-w>', '<leader>bd' }, cmd 'bdelete', opts(noremap, silent, desc 'Close buffer'))
 
   -- Telescope
+  group('<leader>f', '+Telescope')
   nmap('<leader>ff', cmd 'Telescope find_files', opts(noremap, desc '  find files'))
   nmap(
     '<leader>fa',
     cmd 'Telescope find_files follow=true no_ignore=true hidden=true',
     opts(noremap, desc '  find all')
   )
-  nmap('<leader>fg', cmd 'Telescope live_grep', opts(noremap, desc '   live grep'))
+  nmap('<leader>fg', cmd 'Telescope live_grep', opts(noremap, desc '  live grep'))
   nmap('<leader>fb', cmd 'Telescope buffers', opts(noremap, desc '  find buffers'))
   nmap('<leader>fh', cmd 'Telescope help_tags', opts(noremap, desc '  help page'))
-  nmap('<leader>fo', cmd 'Telescope oldfiles', opts(noremap, desc '   find oldfiles'))
-  nmap('<leader>fk', cmd 'Telescope keymaps', opts(noremap, desc '   show keys'))
+  nmap('<leader>fo', cmd 'Telescope oldfiles', opts(noremap, desc '  find oldfiles'))
+  nmap('<leader>fk', cmd 'Telescope keymaps', opts(noremap, desc '  show keys'))
 
   -- nvimtree
-  nmap('<C-n>', cmd 'NvimTreeToggle', opts(noremap, desc '   toggle nvimtree'))
-  nmap('<leader>e', cmd 'NvimTreeFocus', opts(noremap, desc '   focus nvimtree'))
+  nmap('<C-n>', cmd 'NvimTreeToggle', opts(noremap, desc '  toggle nvimtree'))
+  nmap('<leader>e', cmd 'NvimTreeFocus', opts(noremap, desc '  focus nvimtree'))
 
   -- termial
-  tmap('<esc>', [[<C-\><C-n>]], opts(noremap, buffer(0)))
-  tmap('jk', [[<C-\><C-n>]], opts(noremap, buffer(0)))
-  tmap('<C-h>', [[<C-\><C-n><C-W>h]], opts(noremap, buffer(0)))
-  tmap('<C-j>', [[<C-\><C-n><C-W>j]], opts(noremap, buffer(0)))
-  tmap('<C-k>', [[<C-\><C-n><C-W>k]], opts(noremap, buffer(0)))
-  tmap('<C-l>', [[<C-\><C-n><C-W>l]], opts(noremap, buffer(0)))
+  -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+  vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = 'term://*',
+    callback = function()
+      tmap('<esc>', [[<C-\><C-n>]], opts(noremap, buffer(0)))
+      tmap('jk', [[<C-\><C-n>]], opts(noremap, buffer(0)))
+      tmap('<C-h>', [[<C-\><C-n><C-W>h]], opts(noremap, buffer(0)))
+      tmap('<C-j>', [[<C-\><C-n><C-W>j]], opts(noremap, buffer(0)))
+      tmap('<C-k>', [[<C-\><C-n><C-W>k]], opts(noremap, buffer(0)))
+      tmap('<C-l>', [[<C-\><C-n><C-W>l]], opts(noremap, buffer(0)))
+    end,
+    desc = 'Mappings for navigation with a terminal',
+  })
+
+  vim.api.nvim_create_autocmd('TermEnter', {
+    pattern = 'term://*toggleterm#*',
+    callback = function()
+      tmap('<c-t>', cmd 'exe v:count1 . "ToggleTerm"', opts(noremap))
+    end,
+    desc = 'Mappings for navigation with a terminal',
+  })
+  map { 'i', 'n' }('<C-t>', cmd 'exe v:count1 . "ToggleTerm"', opts(noremap, desc 'open termial'))
 
   -- lsp stuff
-  nmap('<leader>e', vim.diagnostic.open_float, opts(noremap))
-  nmap('<leader>e', vim.diagnostic.open_float, opts(noremap))
+  group('<leader>l', '+lsp')
+  nmap('<leader>le', vim.diagnostic.open_float, opts(noremap))
   nmap('[d', vim.diagnostic.goto_prev, opts(noremap))
   nmap(']d', vim.diagnostic.goto_next, opts(noremap))
-  nmap('<leader>q', vim.diagnostic.setloclist, opts(noremap))
+  nmap('<leader>lq', vim.diagnostic.setloclist, opts(noremap))
 end
 
-M.lsp_on_attach = function(client, bufnr)
-  -- nmap('K', vim.lsp.buf.hover, opts(noremap, sli, desc 'Show hover'))
-  -- nmap('gD', vim.lsp.buf.declaration, opts(noremap, desc 'Goto definition'))
-  -- nmap('gr', vim.lsp.buf.references, opts(noremap, desc 'Goto references'))
-  -- nmap('gi', vim.lsp.buf.implementation, opts(noremap, desc 'Goto implementation'))
-  -- nmap('gs', vim.lsp.buf.signature_help, opts(noremap, desc 'Show signature_help'))
+M.lsp_on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -139,7 +155,7 @@ M.lsp_on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, opts(noremap, buffer(bufnr), desc 'Show hover'))
   nmap('<leader>D', vim.lsp.buf.type_definition, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('<leader>rn', vim.lsp.buf.rename, opts(noremap, buffer(bufnr), desc 'Show hover'))
+  nmap('<leader>lr', vim.lsp.buf.rename, opts(noremap, buffer(bufnr), desc 'Show hover'))
   nmap('<leader>ca', vim.lsp.buf.code_action, opts(noremap, buffer(bufnr), desc 'Show hover'))
   nmap('gr', vim.lsp.buf.references, opts(noremap, buffer(bufnr), desc 'Show hover'))
   nmap('<leader>lf', vim.lsp.buf.formatting, opts(noremap, buffer(bufnr), desc 'Show hover'))
