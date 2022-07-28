@@ -10,6 +10,20 @@ plugin {
 }
 
 plugin {
+  'nvim-lualine/lualine.nvim',
+  config = function()
+    require 'ui.configs.lualine'
+  end,
+}
+
+plugin {
+  'ellisonleao/gruvbox.nvim',
+  config = function()
+    require 'ui.configs.gruvbox'
+  end,
+}
+
+plugin {
   'rcarriga/nvim-notify',
 
   config = function()

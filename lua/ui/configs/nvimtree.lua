@@ -1,3 +1,5 @@
+local icons = require 'ui.icons'
+
 local present, nvimtree = pcall(require, 'nvim-tree')
 
 if not present then
@@ -23,10 +25,28 @@ local options = {
     update_cwd = false,
   },
   view = {
-    adaptive_size = true,
+    width = 30,
+    height = 30,
+    hide_root_folder = false,
     side = 'left',
-    width = 25,
-    hide_root_folder = true,
+    preserve_window_proportions = false,
+    mappings = {
+      custom_only = false,
+      list = {},
+    },
+    number = false,
+    relativenumber = false,
+    signcolumn = 'yes',
+  },
+  diagnostics = {
+    enable = require('features').features().icons,
+    show_on_dirs = false,
+    icons = {
+      hint = icons.diagnostic_sign.Hint,
+      info = icons.diagnostic_sign.Info,
+      warning = icons.diagnostic_sign.Warn,
+      error = icons.diagnostic_sign.Error,
+    },
   },
   git = {
     enable = false,

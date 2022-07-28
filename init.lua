@@ -1,6 +1,7 @@
 local features = require 'features'
-local icons, terminal = features.icons, features.terminal
+local icons, terminal, lsp = features.icons, features.terminal, features.lsp
 
-features.enable(icons, terminal)
+features.enable(icons, terminal, lsp { 'lua' })
+
 require 'core'
-require 'keymaps'
+require('keymaps').general()

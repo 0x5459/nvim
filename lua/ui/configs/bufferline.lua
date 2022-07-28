@@ -134,10 +134,7 @@ local options = {
 
 M.setup = function()
   --   require('lvim.keymappings').load(lvim.builtin.bufferline.keymap)
-  require('bufferline').setup {
-    options = options,
-    highlights = options.highlights,
-  }
+  require('bufferline').setup(options)
 
   --   if lvim.builtin.bufferline.on_config_done then
   --     lvim.builtin.bufferline.on_config_done()

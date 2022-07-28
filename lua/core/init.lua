@@ -1,6 +1,5 @@
 require 'core.options'
 require 'ui'
-require 'colors'
 require 'highlighting'
 require 'lsp'
 require('core.lib.plugin').load_plugins()

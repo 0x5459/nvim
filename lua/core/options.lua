@@ -43,3 +43,5 @@ o.wrap = false -- display lines as one long line
 o.shadafile = util.cache_path({}, 'nvim.shada')
 o.scrolloff = 8 -- minimal number of screen lines to keep above and below the cursor.
 o.sidescrolloff = 8 -- minimal number of screen lines to keep left and right of the cursor.
+o.background = 'dark' -- 'dark' or 'light'
+

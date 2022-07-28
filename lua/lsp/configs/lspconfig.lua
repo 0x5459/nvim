@@ -18,6 +18,7 @@ local function on_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
   end
+  require('keymaps').lsp_on_attach(client, bufnr)
 end
 
 -- Add additional capabilities supported by nvim-cmp
@@ -42,23 +43,34 @@ capabilities.textDocument.completion.completionItem = {
   },
 }
 
-lspconfig.sumneko_lua.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+local configs = {
+  lua = {
+    server_name = 'sumneko_lua',
+    opts = {
+      on_attach = on_attach,
+      capabilities = capabilities,
 
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand '$VIMRUNTIME/lua'] = true,
-          [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+              [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
+            },
+            maxPreload = 100000,
+            preloadFileSize = 10000,
+          },
         },
-        maxPreload = 100000,
-        preloadFileSize = 10000,
       },
     },
   },
 }
+
+for _, lang in ipairs(require('features').features().lsp) do
+  print(lang)
+  local conf = configs[lang]
+  lspconfig[conf.server_name].setup(conf.opts)
+end
