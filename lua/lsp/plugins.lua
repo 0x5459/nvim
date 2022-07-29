@@ -18,6 +18,10 @@ plugin {
   end,
 }
 
+plugin {
+  'nvim-lua/lsp-status.nvim',
+}
+
 -- load luasnips + cmp related in insert mode only
 plugin {
   'rafamadriz/friendly-snippets',

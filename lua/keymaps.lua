@@ -86,7 +86,7 @@ M.general = function()
   -- Tab switch buffer
   nmap('L', cmd 'BufferLineCycleNext', opts(noremap, desc '  Goto next buffer'))
   nmap('H', cmd 'BufferLineCyclePrev', opts(noremap, desc '  Goto prev buffer'))
-  nmap({ '<C-w>', '<leader>bd' }, cmd 'bdelete', opts(noremap, silent, desc 'Close buffer'))
+  nmap({ '<C-x>', '<leader>bd' }, cmd 'bdelete', opts(noremap, silent, desc 'Close buffer'))
 
   -- Telescope
   group('<leader>f', '+Telescope')
@@ -117,6 +117,7 @@ M.general = function()
   nmap('<leader>gc', cmd 'Telescope git_commits', opts(noremap, desc 'Checkout commit'))
   nmap('<leader>gC', cmd 'Telescope git_bcommits', opts(noremap, desc 'Checkout commit(for current file)'))
   nmap('<leader>gd', cmd 'Gitsigns diffthis HEAD', opts(noremap, desc 'Git diff'))
+  nmap('<leader>gg', cmd 'lua require "ui.configs.terminal".lazygit_toggle()', opts(noremap, desc 'lazygit'))
 
   -- toggle comment in both modes
   nmap('<leader>/', function()

@@ -61,7 +61,7 @@ plugin {
   tag = 'v2.*',
   event = 'BufWinEnter',
   config = function()
-    require 'ui.configs.terminal'
+    require('ui.configs.terminal').setup()
   end,
   disable = not require('features').features().terminal,
 }

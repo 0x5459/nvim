@@ -67,10 +67,43 @@ local configs = {
       },
     },
   },
+  rust = {
+    server_name = 'rust_analyzer',
+    opts = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+
+      settings = {},
+    },
+  },
+  go = {
+    server_name = 'gopls',
+    opts = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+
+      settings = {},
+    },
+  },
+  java = {
+    server_name = 'jdtls',
+    opts = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+
+      settings = {},
+    },
+  },
+  
+
 }
 
 for _, lang in ipairs(require('features').features().lsp) do
-  print(lang)
   local conf = configs[lang]
-  lspconfig[conf.server_name].setup(conf.opts)
+  if conf == nil then
+    return
+  end
+  if lspconfig[conf.server_name] ~= nil then
+    lspconfig[conf.server_name].setup(conf.opts)
+  end
 end
