@@ -36,6 +36,7 @@ M.general = function()
   imap('<C-k>', '<Up>', opts(noremap, desc '  move up'))
 
   imap({ 'jk', 'kj', 'jj' }, '<ESC>', opts(noremap, desc '[Esc]  Goto Normal mode'))
+  nmap('<leader>h', cmd 'nohlsearch', opts(noremap, desc 'No Highlight'))
 
   imap('<A-j>', '<Esc>:move .+1<CR>==gi', opts(noremap, desc '  Move current line up'))
   imap('<A-k>', '<Esc>:move .-2<CR>==gi', opts(noremap, desc '  Move current line down'))
