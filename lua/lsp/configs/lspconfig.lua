@@ -85,17 +85,6 @@ local configs = {
       settings = {},
     },
   },
-  java = {
-    server_name = 'jdtls',
-    opts = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-
-      settings = {},
-    },
-  },
-  
-
 }
 
 for _, lang in ipairs(require('features').features().lsp) do
