@@ -75,6 +75,24 @@ plugin {
   end,
 }
 
+plugin {
+  'lewis6991/gitsigns.nvim',
+  setup = function()
+    require('core.lib.lazyload').gitsigns()
+  end,
+  config = function()
+    require('gitsigns').setup()
+  end,
+}
+
+plugin {
+  'numToStr/Comment.nvim',
+  event = 'BufRead',
+  config = function()
+    require 'ui.configs.comment'
+  end,
+}
+
 -- Only load whichkey after all the gui
 plugin {
   'folke/which-key.nvim',
@@ -83,4 +101,3 @@ plugin {
     require 'ui.configs.whichkey'
   end,
 }
-

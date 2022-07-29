@@ -72,6 +72,7 @@ M.general = function()
 
   -- buf stuff
   group('<leader>b', '+Buffer')
+  nmap('<leader>bn', cmd 'enew', opts(noremap, silent, desc 'New buffer'))
   nmap('<TAB>', cmd 'BufferLineCycleNext', opts(noremap, silent, desc '  goto prev tab'))
   nmap('<S-Tab>', cmd 'BufferLineCyclePrev', opts(noremap, silent, desc '  goto next tab'))
   nmap('<leader>bl', cmd 'BufferLineMoveNext', opts(noremap, silent, desc 'move tab to next'))
@@ -81,7 +82,6 @@ M.general = function()
   nmap('<leader>bj', cmd 'BufferLinePick', opts(noremap, silent, desc 'Jump'))
   nmap('<leader>bx', cmd 'BufferLinePickClose', opts(noremap, silent, desc 'Pick which buffer to close'))
   nmap('<leader>bD', cmd 'BufferLineSortByDirectory', opts(noremap, silent, desc 'Sort by directory'))
-  nmap('<leader>bL', cmd 'BufferLineSortByExtension', opts(noremap, silent, desc 'Sort by language'))
   nmap('<leader>bE', cmd 'BufferLineSortByExtension', opts(noremap, silent, desc 'Sort by language'))
   -- Tab switch buffer
   nmap('L', cmd 'BufferLineCycleNext', opts(noremap, desc '  Goto next buffer'))
@@ -99,8 +99,34 @@ M.general = function()
   nmap('<leader>fg', cmd 'Telescope live_grep', opts(noremap, desc '  live grep'))
   nmap('<leader>fb', cmd 'Telescope buffers', opts(noremap, desc '  find buffers'))
   nmap('<leader>fh', cmd 'Telescope help_tags', opts(noremap, desc '  help page'))
-  nmap('<leader>fo', cmd 'Telescope oldfiles', opts(noremap, desc '  find oldfiles'))
+  nmap('<leader>fo', cmd 'Telescope oldfiles', opts(noremap, desc '  find oldfiles'))
   nmap('<leader>fk', cmd 'Telescope keymaps', opts(noremap, desc '  show keys'))
+
+  -- git
+  group('<leader>g', '+Git')
+
+  nmap('<leader>gj', cmd 'lua require "gitsigns".next_hunk()', opts(noremap, desc 'Next Hunk'))
+  nmap('<leader>gk', cmd 'lua require "gitsigns".prev_hunk()', opts(noremap, desc 'Prev Hunk'))
+  nmap('<leader>gl', cmd 'lua require "gitsigns".blame_line()', opts(noremap, desc 'Blame'))
+  nmap('<leader>gp', cmd 'lua require "gitsigns".preview_hunk()', opts(noremap, desc 'Preview Hunk'))
+  nmap('<leader>gr', cmd 'lua require "gitsigns".reset_hunk()', opts(noremap, desc 'Reset Hunk'))
+  nmap('<leader>gR', cmd 'lua require "gitsigns".reset_buffer()', opts(noremap, desc 'Reset buffer'))
+  nmap('<leader>gs', cmd 'lua require "gitsigns".stage_hunk()', opts(noremap, desc 'Stage Hunk'))
+  nmap('<leader>gu', cmd 'Telescope git_status', opts(noremap, desc 'Open changed file'))
+  nmap('<leader>gb', cmd 'Telescope git_branches', opts(noremap, desc 'Checkout branch'))
+  nmap('<leader>gc', cmd 'Telescope git_commits', opts(noremap, desc 'Checkout commit'))
+  nmap('<leader>gC', cmd 'Telescope git_bcommits', opts(noremap, desc 'Checkout commit(for current file)'))
+  nmap('<leader>gd', cmd 'Gitsigns diffthis HEAD', opts(noremap, desc 'Git diff'))
+
+  -- toggle comment in both modes
+  nmap('<leader>/', function()
+    require('Comment.api').toggle_current_linewise()
+  end, opts(noremap, desc '蘒  toggle comment'))
+  vmap(
+    '<leader>/',
+    "<ESC><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>",
+    opts(noremap, desc '蘒  toggle comment')
+  )
 
   -- nvimtree
   nmap('<C-n>', cmd 'NvimTreeToggle', opts(noremap, desc '  toggle nvimtree'))
@@ -154,11 +180,10 @@ M.lsp_on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('<leader>D', vim.lsp.buf.type_definition, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('<leader>lr', vim.lsp.buf.rename, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('<leader>ca', vim.lsp.buf.code_action, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('gr', vim.lsp.buf.references, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('<leader>lf', vim.lsp.buf.formatting, opts(noremap, buffer(bufnr), desc 'Show hover'))
+  nmap('<leader>lr', vim.lsp.buf.rename, opts(noremap, buffer(bufnr), desc 'Rname Symbol'))
+  nmap('<leader>la', vim.lsp.buf.code_action, opts(noremap, buffer(bufnr), desc 'Code Action'))
+  nmap('gr', vim.lsp.buf.references, opts(noremap, buffer(bufnr), desc 'Goto references'))
+  nmap('<leader>lf', vim.lsp.buf.formatting, opts(noremap, buffer(bufnr), desc 'reformat code'))
 end
 
 return M

@@ -4,5 +4,4 @@
 --   return
 -- end
 
-
 vim.cmd 'colorscheme gruvbox'

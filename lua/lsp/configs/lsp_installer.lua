@@ -12,7 +12,7 @@ local options = {
   automatic_installation = true,
 
   ui = {
-   icons = {
+    icons = {
       server_installed = ' ',
       server_pending = ' ',
       server_uninstalled = ' ﮊ',
@@ -32,4 +32,3 @@ local options = {
 }
 
 lsp_installer.setup(options)
-

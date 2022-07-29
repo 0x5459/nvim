@@ -47,4 +47,3 @@ local options = {
 -- utils.load_mappings(mapping_groups)
 
 wk.setup(options)
-

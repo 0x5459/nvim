@@ -10,7 +10,6 @@ function M.nvim_treesitter()
   -- vim.api.nvim_command 'set foldmethod=expr'
   -- vim.api.nvim_command 'set foldexpr=nvim_treesitter#foldexpr()'
 
-
   treesitter_configs.setup {
     -- A list of parser names, or "all"
     ensure_installed = { 'lua' },
