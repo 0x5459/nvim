@@ -131,8 +131,8 @@ M.general = function()
   )
 
   -- nvimtree
-  nmap('<C-n>', cmd 'NvimTreeToggle', opts(noremap, desc '  toggle nvimtree'))
-  nmap('<leader>e', cmd 'NvimTreeFocus', opts(noremap, desc '  focus nvimtree'))
+  nmap('<leader>e', cmd 'NvimTreeToggle', opts(noremap, desc '  toggle nvimtree'))
+  -- nmap('<leader>e', cmd 'NvimTreeFocus', opts(noremap, desc '  focus nvimtree'))
 
   -- termial
   -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -185,7 +185,10 @@ M.lsp_on_attach = function(_, bufnr)
   nmap('<leader>lr', vim.lsp.buf.rename, opts(noremap, buffer(bufnr), desc 'Rname Symbol'))
   nmap('<leader>la', vim.lsp.buf.code_action, opts(noremap, buffer(bufnr), desc 'Code Action'))
   nmap('gr', vim.lsp.buf.references, opts(noremap, buffer(bufnr), desc 'Goto references'))
-  nmap('<leader>lf', vim.lsp.buf.formatting, opts(noremap, buffer(bufnr), desc 'reformat code'))
+  -- nmap('<leader>lf', vim.lsp.buf.formatting, opts(noremap, buffer(bufnr), desc 'reformat code'))
+  nmap('<leader>lf', function()
+    vim.lsp.buf.format { async = true }
+  end, opts(noremap, buffer(bufnr), desc 'reformat code'))
 end
 
 return M

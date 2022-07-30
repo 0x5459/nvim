@@ -7,17 +7,17 @@ end
 require 'ui.lsp'
 
 local function on_attach(client, bufnr)
-  local vim_version = vim.version()
-
-  if vim_version.minor > 7 then
-    -- nightly
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-  else
-    -- stable
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
-  end
+  -- local vim_version = vim.version()
+  --
+  -- if vim_version.minor > 7 then
+  --   -- nightly
+  --   client.server_capabilities.documentFormattingProvider = true
+  --   client.server_capabilities.documentRangeFormattingProvider = true
+  -- else
+  --   -- stable
+  --   client.resolved_capabilities.document_formatting = false
+  --   client.resolved_capabilities.document_range_formatting = false
+  -- end
   require('keymaps').lsp_on_attach(client, bufnr)
 end
 

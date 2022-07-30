@@ -2,7 +2,6 @@ local M = {}
 
 M.set_keymap = function(mode, k, target, opts)
   local wk_present, wk = pcall(require, 'which-key')
-
   vim.keymap.set(mode, k, target, opts)
 
   if wk_present and opts.desc ~= nil and opts.desc ~= '' then
