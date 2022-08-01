@@ -66,13 +66,14 @@ M.general = function()
   nmap({ '<C-q>', '<leader>q' }, cmd 'q', opts(noremap, desc 'Quit vim'))
 
   -- Packer keymaps
+  group('<leader>p', '+ Packer')
   nmap('<leader>pu', cmd 'PackerUpdate', opts(noremap, silent, desc '  Run PackerUpdate'))
   nmap('<leader>pi', cmd 'PackerInstall', opts(noremap, silent, desc '  Run PackerInstall'))
   nmap('<leader>pc', cmd 'PackerCompile', opts(noremap, desc '  Run PackerCompile'))
   nmap('<leader>ps', cmd 'PackerSync', opts(noremap, silent, desc 'מּ  Run PackerSync'))
 
   -- buf stuff
-  group('<leader>b', '+Buffer')
+  group('<leader>b', '+ Buffer')
   nmap('<leader>bn', cmd 'enew', opts(noremap, silent, desc 'New buffer'))
   nmap('<TAB>', cmd 'BufferLineCycleNext', opts(noremap, silent, desc '  goto prev tab'))
   nmap('<S-Tab>', cmd 'BufferLineCyclePrev', opts(noremap, silent, desc '  goto next tab'))
@@ -90,7 +91,7 @@ M.general = function()
   nmap({ '<C-x>', '<leader>bd' }, cmd 'bdelete', opts(noremap, silent, desc 'Close buffer'))
 
   -- Telescope
-  group('<leader>f', '+Telescope')
+  group('<leader>f', '+ Telescope')
   nmap('<leader>ff', cmd 'Telescope find_files', opts(noremap, desc '  find files'))
   nmap(
     '<leader>fa',
@@ -104,7 +105,7 @@ M.general = function()
   nmap('<leader>fk', cmd 'Telescope keymaps', opts(noremap, desc '  show keys'))
 
   -- git
-  group('<leader>g', '+Git')
+  group('<leader>g', '+ Git')
 
   nmap('<leader>gj', cmd 'lua require "gitsigns".next_hunk()', opts(noremap, desc 'Next Hunk'))
   nmap('<leader>gk', cmd 'lua require "gitsigns".prev_hunk()', opts(noremap, desc 'Prev Hunk'))
@@ -123,11 +124,11 @@ M.general = function()
   -- toggle comment in both modes
   nmap('<leader>/', function()
     require('Comment.api').toggle_current_linewise()
-  end, opts(noremap, desc '蘒  toggle comment'))
+  end, opts(noremap, desc '蘒 toggle comment'))
   vmap(
     '<leader>/',
     "<ESC><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>",
-    opts(noremap, desc '蘒  toggle comment')
+    opts(noremap, desc '蘒 toggle comment')
   )
 
   -- nvimtree
@@ -159,11 +160,11 @@ M.general = function()
   map { 'i', 'n' }('<C-t>', cmd 'exe v:count1 . "ToggleTerm"', opts(noremap, desc 'open termial'))
 
   -- lsp stuff
-  group('<leader>l', '+lsp')
-  nmap('<leader>le', vim.diagnostic.open_float, opts(noremap))
-  nmap('[d', vim.diagnostic.goto_prev, opts(noremap))
-  nmap(']d', vim.diagnostic.goto_next, opts(noremap))
-  nmap('<leader>lq', vim.diagnostic.setloclist, opts(noremap))
+  group('<leader>l', '+ lsp')
+  nmap('<leader>le', vim.diagnostic.open_float, opts(noremap, desc 'Hover diagnostics'))
+  nmap('[d', vim.diagnostic.goto_prev, opts(noremap, desc 'Previous diagnostic'))
+  nmap(']d', vim.diagnostic.goto_next, opts(noremap, desc 'Next diagnostic'))
+  nmap('<leader>lq', vim.diagnostic.setloclist, opts(noremap, desc 'Open diagnastic loclist'))
 end
 
 M.lsp_on_attach = function(_, bufnr)
@@ -177,8 +178,8 @@ M.lsp_on_attach = function(_, bufnr)
   nmap('K', vim.lsp.buf.hover, opts(noremap, buffer(bufnr), desc 'Show hover'))
   nmap('gi', vim.lsp.buf.implementation, opts(noremap, buffer(bufnr), desc 'Goto implementation'))
   nmap('gs', vim.lsp.buf.signature_help, opts(noremap, buffer(bufnr), desc 'Show signature_help'))
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, opts(noremap, buffer(bufnr), desc 'Show hover'))
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, opts(noremap, buffer(bufnr), desc 'Show hover'))
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, opts(noremap, buffer(bufnr), desc 'Add workspace folder'))
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, opts(noremap, buffer(bufnr), desc 'Remove workspace folder'))
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, opts(noremap, buffer(bufnr), desc 'Show hover'))

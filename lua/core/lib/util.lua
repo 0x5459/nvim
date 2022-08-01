@@ -15,7 +15,12 @@ end
 ---Join path segments that were passed as input
 ---@return string
 function M.join_paths(paths)
-  local result = table.concat(paths, M.sep())
+  local result = table.concat(
+    vim.fn.filter(paths, function(_, val)
+      return val ~= ''
+    end),
+    M.sep()
+  )
   return result
 end
 
@@ -24,7 +29,7 @@ local get_dir_fn = function(catename, envname)
     catename = { catename, 'string' },
     envname = { envname, 'string', true },
   }
-  envname = envname ~= nil or 'NVIM_' .. string.upper(catename) .. 'DIR'
+  envname = envname ~= nil and envname or 'NVIM_' .. string.upper(catename) .. 'DIR'
   return function()
     local nvim_dir = os.getenv(envname)
     if not nvim_dir then
@@ -61,6 +66,7 @@ end
 
 M.cache_path = path_fn 'cache'
 M.data_path = path_fn 'data'
+M.config_path = path_fn 'config'
 
 function M.modname(fullname)
   validate {
