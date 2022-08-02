@@ -86,11 +86,8 @@ plugin {
 }
 
 plugin {
-  'numToStr/Comment.nvim',
-  event = 'BufRead',
-  config = function()
-    require 'ui.configs.comment'
-  end,
+  'iamcco/markdown-preview.nvim',
+  run = function() vim.fn["mkdp#util#install"]() end,
 }
 
 -- Only load whichkey after all the gui

@@ -24,8 +24,8 @@ vim.g.mapleader = ' '
 -- l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
 M.general = function()
   -- Alternatively to allow using alt in macOS without enabling “Use Option as Meta key”
-  map { 'n', 'v', 'i' }('∆', '<A-j>', opts(remap, desc '  Fix <A-j> mapping on MacOS'))
-  map { 'n', 'v', 'i' }('˚', '<A-k>', opts(remap, desc '  Fix <A-k> mapping on MacOS'))
+  map { 'n', 'v', 'i' } ('∆', '<A-j>', opts(remap, desc '  Fix <A-j> mapping on MacOS'))
+  map { 'n', 'v', 'i' } ('˚', '<A-k>', opts(remap, desc '  Fix <A-k> mapping on MacOS'))
   vmap('<', '<gv', opts(noremap, desc '  Better indent'))
   vmap('>', '>gv', opts(noremap, desc '  Better indent'))
   vmap('~', '~gv', opts(noremap, desc 'Aa Better toggle case in visual mode'))
@@ -62,7 +62,7 @@ M.general = function()
   nmap('<C-k>', '<C-w>k', opts(noremap, desc ' Goto down window'))
 
   -- save
-  map { 'i', 'n' }('<C-s>', '<cmd> w <CR>', opts(noremap, desc '﬚  save file'))
+  map { 'i', 'n' } ('<C-s>', '<cmd> w <CR>', opts(noremap, desc '﬚  save file'))
   nmap({ '<C-q>', '<leader>q' }, cmd 'q', opts(noremap, desc 'Quit vim'))
 
   -- Packer keymaps
@@ -157,7 +157,7 @@ M.general = function()
     end,
     desc = 'Mappings for navigation with a terminal',
   })
-  map { 'i', 'n' }('<C-t>', cmd 'exe v:count1 . "ToggleTerm"', opts(noremap, desc 'open termial'))
+  map { 'i', 'n' } ('<C-t>', cmd 'exe v:count1 . "ToggleTerm"', opts(noremap, desc 'open termial'))
 
   -- lsp stuff
   group('<leader>l', '+ lsp')
@@ -165,6 +165,10 @@ M.general = function()
   nmap('[d', vim.diagnostic.goto_prev, opts(noremap, desc 'Previous diagnostic'))
   nmap(']d', vim.diagnostic.goto_next, opts(noremap, desc 'Next diagnostic'))
   nmap('<leader>lq', vim.diagnostic.setloclist, opts(noremap, desc 'Open diagnastic loclist'))
+
+  -- markdown
+  group('<leader>m', 'markdown')
+  nmap('<leader>mp', cmd 'MarkdownPreviewToggle', opts(noremap, desc 'Markdown preview'))
 end
 
 M.lsp_on_attach = function(_, bufnr)

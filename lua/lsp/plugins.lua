@@ -22,6 +22,14 @@ plugin {
   'nvim-lua/lsp-status.nvim',
 }
 
+plugin {
+  'numToStr/Comment.nvim',
+  event = 'BufRead',
+  config = function()
+    require 'lsp.configs.comment'
+  end,
+}
+
 -- load luasnips + cmp related in insert mode only
 plugin {
   'rafamadriz/friendly-snippets',
