@@ -103,6 +103,12 @@ M.general = function()
   nmap('<leader>fh', cmd 'Telescope help_tags', opts(noremap, desc '  help page'))
   nmap('<leader>fo', cmd 'Telescope oldfiles', opts(noremap, desc '  find oldfiles'))
   nmap('<leader>fk', cmd 'Telescope keymaps', opts(noremap, desc '  show keys'))
+  nmap({ '<c-G>', '<leader>fp' }, function()
+    vim.notify(vim.fn.expand('%:p'), vim.log.levels.INFO, {
+      title = 'Current file path',
+    })
+
+  end, opts(noremap, desc 'Show current file path'))
 
   -- git
   group('<leader>g', '+ Git')

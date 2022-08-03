@@ -32,6 +32,9 @@ local defaults = {
       TRACE = '✎',
     },
   },
+  on_open = function(win)
+    vim.api.nvim_win_set_option(win, 'wrap', true)
+  end
 }
 
 -- function M.config()
