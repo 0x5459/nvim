@@ -19,6 +19,15 @@ plugin {
 }
 
 plugin {
+  'glepnir/lspsaga.nvim',
+  branch = 'main',
+  config = function()
+    require 'lsp.configs.lspsaga'
+  end
+}
+
+
+plugin {
   'nvim-lua/lsp-status.nvim',
 }
 
