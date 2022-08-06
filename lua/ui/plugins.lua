@@ -9,11 +9,13 @@ plugin {
   disable = not require('features').features().icons,
 }
 
-plugin {
-  'nvim-lualine/lualine.nvim',
+plugin{
+  'glepnir/galaxyline.nvim',
+  branch = 'main',
   config = function()
-    require 'ui.configs.lualine'
+    require('ui.configs.galaxyline')
   end,
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true },
 }
 
 plugin {
