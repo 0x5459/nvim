@@ -19,6 +19,7 @@ local function on_attach(client, bufnr)
   --   client.resolved_capabilities.document_range_formatting = false
   -- end
   require('keymaps').lsp_on_attach(client, bufnr)
+  require('virtualtypes').on_attach(client, bufnr)
 end
 
 -- Add additional capabilities supported by nvim-cmp
@@ -78,6 +79,24 @@ local configs = {
   },
   go = {
     server_name = 'gopls',
+    opts = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+
+      settings = {},
+    },
+  },
+  java = {
+    server_name = 'jdtls',
+    opts = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+
+      settings = {},
+    },
+  },
+  ocaml = {
+    server_name = 'ocamllsp',
     opts = {
       on_attach = on_attach,
       capabilities = capabilities,

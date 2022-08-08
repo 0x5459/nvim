@@ -39,6 +39,17 @@ plugin {
   end,
 }
 
+plugin {
+  'anuvyklack/pretty-fold.nvim',
+  config = function()
+    require('pretty-fold').setup()
+  end
+}
+
+plugin {
+  'jubnzv/virtual-types.nvim',
+}
+
 -- load luasnips + cmp related in insert mode only
 plugin {
   'rafamadriz/friendly-snippets',
