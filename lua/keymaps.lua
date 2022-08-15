@@ -144,8 +144,8 @@ M.general = function()
   end, opts(noremap, desc '蘒 toggle comment'))
   vmap(
     '<leader>/',
-    "<ESC><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>",
-    opts(noremap, desc '蘒 toggle comment')
+     "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode(), {})<CR>",
+     opts(noremap, desc '蘒 toggle comment')
   )
 
   -- nvimtree
