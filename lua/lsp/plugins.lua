@@ -26,11 +26,6 @@ plugin {
   end
 }
 
-
-plugin {
-  'nvim-lua/lsp-status.nvim',
-}
-
 plugin {
   'numToStr/Comment.nvim',
   event = 'BufRead',
@@ -46,8 +41,24 @@ plugin {
   end
 }
 
+
+-- plugin {
+--   "rcarriga/nvim-dap-ui",
+--   requires = { "mfussenegger/nvim-dap" }
+-- }
+
+-- plugin {
+--   'jubnzv/virtual-types.nvim',
+-- }
+
 plugin {
-  'jubnzv/virtual-types.nvim',
+  'simrat39/rust-tools.nvim',
+  disable = not require('features').lsp_support('rust'),
+}
+
+-- Debugging
+plugin {
+  'mfussenegger/nvim-dap'
 }
 
 -- load luasnips + cmp related in insert mode only

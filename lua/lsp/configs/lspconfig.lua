@@ -19,7 +19,7 @@ local function on_attach(client, bufnr)
   --   client.resolved_capabilities.document_range_formatting = false
   -- end
   require('keymaps').lsp_on_attach(client, bufnr)
-  require('virtualtypes').on_attach(client, bufnr)
+  -- require('virtualtypes').on_attach(client, bufnr)
 end
 
 -- Add additional capabilities supported by nvim-cmp

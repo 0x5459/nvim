@@ -34,6 +34,15 @@ function M.add_lsp_support(lang)
   end
 end
 
+function M.lsp_support(lang)
+  for _, v in ipairs(M.features().lsp) do
+    if v == lang then
+      return true
+    end
+  end
+  return false
+end
+
 function M.enable(...)
   for _, fn in ipairs { ... } do
     fn(features)()

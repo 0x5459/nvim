@@ -9,20 +9,41 @@ plugin {
   disable = not require('features').features().icons,
 }
 
-plugin{
-  'glepnir/galaxyline.nvim',
-  branch = 'main',
+plugin {
+  'catppuccin/nvim',
+  as = 'catppuccin',
   config = function()
-    require('ui.configs.galaxyline')
-  end,
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    require("catppuccin").setup {
+      integration = {
+        treesitter = true,
+        nvimtree = {
+          enabled = true,
+          show_root = true, -- makes the root folder not transparent
+          transparent_panel = false, -- make the panel transparent
+        }
+      }
+    }
+    vim.cmd [[colorscheme catppuccin]]
+  end
 }
 
 plugin {
-  'ellisonleao/gruvbox.nvim',
+  'lukas-reineke/indent-blankline.nvim',
   config = function()
-    require 'ui.configs.gruvbox'
+    require("indent_blankline").setup {
+      show_current_context = true,
+      show_current_context_start = true,
+      show_end_of_line = true,
+    }
   end,
+}
+
+plugin {
+  'nvim-lualine/lualine.nvim',
+  config = function()
+    require('ui.configs.statusline')
+  end,
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true },
 }
 
 plugin {

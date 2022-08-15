@@ -46,14 +46,15 @@ local options = {
   keymap = {
     normal_mode = {},
   },
-  highlights = {
-    background = {
-      gui = 'italic',
-    },
-    buffer_selected = {
-      gui = 'bold',
-    },
-  },
+  -- 下面这段配置过时了
+  -- highlights = {
+  --   background = {
+  --     gui = 'italic',
+  --   },
+  --   buffer_selected = {
+  --     gui = 'bold',
+  --   },
+  -- },
   options = {
     numbers = 'none', -- can be "none" | "ordinal" | "buffer_id" | "both" | function
     close_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
