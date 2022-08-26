@@ -214,9 +214,9 @@ M.lsp_on_attach = function(_, bufnr)
     require('lspsaga.action').smart_scroll_with_saga(-1)
   end, opts(noremap))
   nmap('gi', vim.lsp.buf.implementation, opts(noremap, buffer(bufnr), desc 'Goto implementation'))
-  -- nmap('gs', vim.lsp.buf.signature_help, opts(noremap, buffer(bufnr), desc 'Show signature_help'))
-  nmap('gs', require('lspsaga.signaturehelp').signature_help,
-    opts(noremap, buffer(bufnr), desc 'Show signature_help'))
+  nmap('gs', vim.lsp.buf.signature_help, opts(noremap, buffer(bufnr), desc 'Show signature_help'))
+  --nmap('gs', require('lspsaga.signaturehelp').signature_help,
+    --opts(noremap, buffer(bufnr), desc 'Show signature_help'))
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, opts(noremap, buffer(bufnr), desc 'Add workspace folder'))
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, opts(noremap, buffer(bufnr), desc 'Remove workspace folder'))
   nmap('<leader>wl', function()
